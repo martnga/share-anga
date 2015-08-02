@@ -1,2 +1,4 @@
-# ShareAnga
-An App To CrowdSource Weather  Updates Built Using Firebase
+Send weather conditions of where you are to save everyone else from rude surprises.
+
+******
+### Share your Anga Updates.
