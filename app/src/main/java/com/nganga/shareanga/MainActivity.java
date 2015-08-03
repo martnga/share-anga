@@ -1,17 +1,28 @@
 package com.nganga.shareanga;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Button mSunny = (Button) findViewById(R.id.sunny);
+        Button mRainy = (Button) findViewById(R.id.rainy);
+        TextView mCondition = (TextView) findViewById(R.id.condition);
     }
 
     @Override
