@@ -5,16 +5,24 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 
 public class MainActivity extends Activity {
 
+    private Firebase mRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Firebase.setAndroidContext(this);
     }
 
     @Override
@@ -22,7 +30,36 @@ public class MainActivity extends Activity {
         super.onStart();
         Button mSunny = (Button) findViewById(R.id.sunny);
         Button mRainy = (Button) findViewById(R.id.rainy);
-        TextView mCondition = (TextView) findViewById(R.id.condition);
+        final  TextView mCondition = (TextView) findViewById(R.id.condition);
+
+        mRef = new Firebase("https://shareanga.firebaseio.com/condition");
+
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String newCondition = (String) dataSnapshot.getValue();
+                mCondition.setText(newCondition);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        mSunny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mRef.setValue("Sunny");
+            }
+        });
+
+        mRainy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mRef.setValue("Rainy");
+            }
+        });
     }
 
     @Override
